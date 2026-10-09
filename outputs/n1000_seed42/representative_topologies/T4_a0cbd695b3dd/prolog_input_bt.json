@@ -1,0 +1,67 @@
+{
+  "trees": [
+    {
+      "title": "Executed Service Path",
+      "root": "EXEC_PATH_ROOT",
+      "nodes": {
+        "F1": {
+          "name": "Initialize",
+          "properties": {
+            "bbwrite": "request"
+          }
+        },
+        "F2": {
+          "name": "Preprocess",
+          "properties": {
+            "bbread": "request",
+            "bbwrite": "context"
+          }
+        },
+        "F9": {
+          "name": "Recovery Prepare",
+          "properties": {
+            "bbread": "context",
+            "bbwrite": "recovery_plan"
+          }
+        },
+        "F10": {
+          "name": "Recovery Execute",
+          "properties": {
+            "bbread": "recovery_plan",
+            "bbwrite": "result"
+          }
+        },
+        "F11": {
+          "name": "Consolidate",
+          "properties": {
+            "bbread": "result",
+            "bbwrite": "consolidated_result"
+          }
+        },
+        "F12": {
+          "name": "Finalize",
+          "properties": {
+            "bbread": "consolidated_result",
+            "bbwrite": "output"
+          }
+        },
+        "EXEC_PATH_ROOT": {
+          "name": "Sequence",
+          "children": [
+            "F1",
+            "F2",
+            "F9",
+            "F10",
+            "F11",
+            "F12"
+          ],
+          "properties": {}
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "source_run_id": 19,
+    "note": "Resolved execution path encoded as a Behavior Tree and transformed by the unchanged existing BT->SG Prolog rule."
+  }
+}

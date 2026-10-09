@@ -1,0 +1,105 @@
+{
+  "name": "Executed BT - run 19",
+  "source_tree_name": "Generic Fallback-Retry Workflow BT",
+  "source_run_id": 19,
+  "root": "ROOT",
+  "nodes": {
+    "F1": {
+      "type": "action",
+      "name": "Initialize"
+    },
+    "F2": {
+      "type": "action",
+      "name": "Preprocess"
+    },
+    "C1": {
+      "type": "condition",
+      "name": "A Applicable?",
+      "probability_key": "a_applicable"
+    },
+    "SEQ_A": {
+      "type": "sequence",
+      "name": "Strategy A",
+      "children": [
+        "C1"
+      ]
+    },
+    "C3": {
+      "type": "condition",
+      "name": "B Applicable?",
+      "probability_key": "b_applicable"
+    },
+    "SEQ_B": {
+      "type": "sequence",
+      "name": "Strategy B",
+      "children": [
+        "C3"
+      ]
+    },
+    "F9": {
+      "type": "action",
+      "name": "Recovery Prepare"
+    },
+    "F10": {
+      "type": "action",
+      "name": "Recovery Execute",
+      "strategy_label": "Recovery"
+    },
+    "SEQ_R": {
+      "type": "sequence",
+      "name": "Recovery",
+      "children": [
+        "F9",
+        "F10"
+      ]
+    },
+    "SEL": {
+      "type": "fallback",
+      "name": "Strategy Selector",
+      "children": [
+        "SEQ_A",
+        "SEQ_B",
+        "SEQ_R"
+      ]
+    },
+    "F11": {
+      "type": "action",
+      "name": "Consolidate"
+    },
+    "F12": {
+      "type": "action",
+      "name": "Finalize"
+    },
+    "ROOT": {
+      "type": "sequence",
+      "name": "Root Sequence",
+      "children": [
+        "F1",
+        "F2",
+        "SEL",
+        "F11",
+        "F12"
+      ]
+    }
+  },
+  "execution_metadata": {
+    "visited_leaf_ids": [
+      "F1",
+      "F2",
+      "C1",
+      "C3",
+      "F9",
+      "F10",
+      "F11",
+      "F12"
+    ],
+    "action_invocation_counts": {
+      "F1": 1,
+      "F2": 1,
+      "F9": 1,
+      "F10": 1,
+      "F11": 1,
+      "F12": 1
+    }
+  }
+}

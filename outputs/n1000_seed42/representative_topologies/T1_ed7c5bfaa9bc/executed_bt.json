@@ -1,0 +1,105 @@
+{
+  "name": "Executed BT - run 1",
+  "source_tree_name": "Generic Fallback-Retry Workflow BT",
+  "source_run_id": 1,
+  "root": "ROOT",
+  "nodes": {
+    "F1": {
+      "type": "action",
+      "name": "Initialize"
+    },
+    "F2": {
+      "type": "action",
+      "name": "Preprocess"
+    },
+    "C1": {
+      "type": "condition",
+      "name": "A Applicable?",
+      "probability_key": "a_applicable"
+    },
+    "F3": {
+      "type": "action",
+      "name": "A Prepare"
+    },
+    "F4": {
+      "type": "action",
+      "name": "A Execute",
+      "outcome_probability_key": "a_execute_success"
+    },
+    "RA": {
+      "type": "retry",
+      "name": "Retry A Execute",
+      "child": "F4",
+      "max_attempts": 2
+    },
+    "C2": {
+      "type": "condition",
+      "name": "A Result OK?",
+      "probability_key": "a_result_ok"
+    },
+    "F5": {
+      "type": "action",
+      "name": "A Commit",
+      "strategy_label": "A"
+    },
+    "SEQ_A": {
+      "type": "sequence",
+      "name": "Strategy A",
+      "children": [
+        "C1",
+        "F3",
+        "RA",
+        "C2",
+        "F5"
+      ]
+    },
+    "SEL": {
+      "type": "fallback",
+      "name": "Strategy Selector",
+      "children": [
+        "SEQ_A"
+      ]
+    },
+    "F11": {
+      "type": "action",
+      "name": "Consolidate"
+    },
+    "F12": {
+      "type": "action",
+      "name": "Finalize"
+    },
+    "ROOT": {
+      "type": "sequence",
+      "name": "Root Sequence",
+      "children": [
+        "F1",
+        "F2",
+        "SEL",
+        "F11",
+        "F12"
+      ]
+    }
+  },
+  "execution_metadata": {
+    "visited_leaf_ids": [
+      "F1",
+      "F2",
+      "C1",
+      "F3",
+      "F4",
+      "C2",
+      "F5",
+      "F11",
+      "F12"
+    ],
+    "action_invocation_counts": {
+      "F1": 1,
+      "F2": 1,
+      "F3": 1,
+      "F4": 1,
+      "F5": 1,
+      "F11": 1,
+      "F12": 1
+    }
+  }
+}

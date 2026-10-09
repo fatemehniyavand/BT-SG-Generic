@@ -1,0 +1,13 @@
+{
+  "runs": 1000,
+  "seed": 42,
+  "probabilities": {
+    "a_applicable": 0.70,
+    "a_execute_success": 0.75,
+    "a_result_ok": 0.80,
+    "b_applicable": 0.85,
+    "b_execute_success": 0.80,
+    "b_result_ok": 0.90
+  },
+  "convergence_checkpoints": [100, 500, 1000, 5000, 10000]
+}

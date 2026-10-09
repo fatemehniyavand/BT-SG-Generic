@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run 1000-run experiment",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_experiment.py",
+      "console": "integratedTerminal",
+      "args": ["--runs", "1000", "--seed", "42", "--output", "outputs/n1000_seed42"]
+    },
+    {
+      "name": "Run Streamlit dashboard",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "streamlit",
+      "args": ["run", "${workspaceFolder}/app.py"],
+      "console": "integratedTerminal"
+    }
+  ]
+}

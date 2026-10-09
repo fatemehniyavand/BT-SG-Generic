@@ -1,0 +1,4 @@
+runs,p_strategy_a,p_strategy_b,p_recovery,mean_operations_per_run,unique_topologies
+100,0.54,0.24,0.22,127000.0,7
+500,0.556,0.284,0.16,124264.0,7
+1000,0.547,0.311,0.142,123556.0,7

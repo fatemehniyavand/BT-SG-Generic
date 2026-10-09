@@ -1,0 +1,13 @@
+task_id,task_name,workload_class,run_activation_count,run_activation_rate,invocation_count,success_count,failure_count,operations_per_invocation,total_operations
+F1,Initialize,Light,1000,1.0,1000,1000,0,1000,1000000
+F2,Preprocess,Medium,1000,1.0,1000,1000,0,5000,5000000
+F3,A Prepare,Medium,703,0.703,703,703,0,8000,5624000
+F4,A Execute,Heavy,703,0.703,884,656,228,50000,44200000
+F5,A Commit,Light-Medium,547,0.547,547,547,0,4000,2188000
+F6,B Prepare,Medium,380,0.38,380,380,0,8000,3040000
+F7,B Execute,Heavy,380,0.38,458,367,91,80000,36640000
+F8,B Commit,Light-Medium,311,0.311,311,311,0,4000,1244000
+F9,Recovery Prepare,Medium,142,0.142,142,142,0,10000,1420000
+F10,Recovery Execute,Heavy,142,0.142,142,142,0,100000,14200000
+F11,Consolidate,Medium,1000,1.0,1000,1000,0,7000,7000000
+F12,Finalize,Light,1000,1.0,1000,1000,0,2000,2000000

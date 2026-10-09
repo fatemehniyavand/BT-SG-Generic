@@ -1,0 +1,35 @@
+{
+  "name": "Generic Fallback-Retry Workflow BT",
+  "root": "ROOT",
+  "nodes": {
+    "ROOT": {"type": "sequence", "name": "Root Sequence", "children": ["F1", "F2", "SEL", "F11", "F12"]},
+
+    "F1": {"type": "action", "name": "Initialize"},
+    "F2": {"type": "action", "name": "Preprocess"},
+
+    "SEL": {"type": "fallback", "name": "Strategy Selector", "children": ["SEQ_A", "SEQ_B", "SEQ_R"]},
+
+    "SEQ_A": {"type": "sequence", "name": "Strategy A", "children": ["C1", "F3", "RA", "C2", "F5"]},
+    "C1": {"type": "condition", "name": "A Applicable?", "probability_key": "a_applicable"},
+    "F3": {"type": "action", "name": "A Prepare"},
+    "RA": {"type": "retry", "name": "Retry A Execute", "child": "F4", "max_attempts": 2},
+    "F4": {"type": "action", "name": "A Execute", "outcome_probability_key": "a_execute_success"},
+    "C2": {"type": "condition", "name": "A Result OK?", "probability_key": "a_result_ok"},
+    "F5": {"type": "action", "name": "A Commit", "strategy_label": "A"},
+
+    "SEQ_B": {"type": "sequence", "name": "Strategy B", "children": ["C3", "F6", "RB", "C4", "F8"]},
+    "C3": {"type": "condition", "name": "B Applicable?", "probability_key": "b_applicable"},
+    "F6": {"type": "action", "name": "B Prepare"},
+    "RB": {"type": "retry", "name": "Retry B Execute", "child": "F7", "max_attempts": 2},
+    "F7": {"type": "action", "name": "B Execute", "outcome_probability_key": "b_execute_success"},
+    "C4": {"type": "condition", "name": "B Result OK?", "probability_key": "b_result_ok"},
+    "F8": {"type": "action", "name": "B Commit", "strategy_label": "B"},
+
+    "SEQ_R": {"type": "sequence", "name": "Recovery", "children": ["F9", "F10"]},
+    "F9": {"type": "action", "name": "Recovery Prepare"},
+    "F10": {"type": "action", "name": "Recovery Execute", "strategy_label": "Recovery"},
+
+    "F11": {"type": "action", "name": "Consolidate"},
+    "F12": {"type": "action", "name": "Finalize"}
+  }
+}

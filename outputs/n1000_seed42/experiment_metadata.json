@@ -1,0 +1,21 @@
+{
+  "runs": 1000,
+  "seed": 42,
+  "probabilities": {
+    "a_applicable": 0.7,
+    "a_execute_success": 0.75,
+    "a_result_ok": 0.8,
+    "b_applicable": 0.85,
+    "b_execute_success": 0.8,
+    "b_result_ok": 0.9
+  },
+  "retry_max_attempts": {
+    "RA": 2,
+    "RB": 2
+  },
+  "tree_name": "Generic Fallback-Retry Workflow BT",
+  "sg_generation_pipeline": "execution trace -> executed-path BT -> Prolog-compatible BT -> unchanged existing btsg.pl -> executed SG",
+  "prolog_rule_sha256": "98f88f8cc0a8e81b8f3301cf73542c4579023ae10038ed63e77edff83ea62ab0",
+  "unique_prolog_transformations": 7,
+  "prolog_cache_hits": 993
+}

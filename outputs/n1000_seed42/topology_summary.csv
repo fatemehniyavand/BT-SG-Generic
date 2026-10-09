@@ -1,0 +1,8 @@
+topology_signature,count,frequency,representative_run_id,strategy_mix
+ed7c5bfaa9bc,547,0.547,1,{'A': 547}
+db643edd240b,203,0.203,3,{'B': 203}
+474e8fbf4128,108,0.108,6,{'B': 108}
+a0cbd695b3dd,49,0.049,19,{'Recovery': 49}
+a237c9e0c424,45,0.045,15,{'Recovery': 45}
+19ba37cc2478,24,0.024,8,{'Recovery': 24}
+ed36fdfea460,24,0.024,60,{'Recovery': 24}

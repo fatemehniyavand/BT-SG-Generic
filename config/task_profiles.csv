@@ -1,0 +1,13 @@
+task_id,task_name,workload_class,operations_per_invocation,reads,writes
+F1,Initialize,Light,1000,,request
+F2,Preprocess,Medium,5000,request,context
+F3,A Prepare,Medium,8000,context,plan_a
+F4,A Execute,Heavy,50000,plan_a,raw_a
+F5,A Commit,Light-Medium,4000,raw_a,result
+F6,B Prepare,Medium,8000,context,plan_b
+F7,B Execute,Heavy,80000,plan_b,raw_b
+F8,B Commit,Light-Medium,4000,raw_b,result
+F9,Recovery Prepare,Medium,10000,context,recovery_plan
+F10,Recovery Execute,Heavy,100000,recovery_plan,result
+F11,Consolidate,Medium,7000,result,consolidated_result
+F12,Finalize,Light,2000,consolidated_result,output

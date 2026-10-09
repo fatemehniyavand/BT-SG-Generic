@@ -1,0 +1,2 @@
+# No Python packages are required for the terminal experiment itself.
+# SWI-Prolog is an external executable: brew install swi-prolog

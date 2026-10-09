@@ -1,0 +1,222 @@
+{
+  "run_id": 60,
+  "service_nodes": {
+    "F1": {
+      "id": "F1",
+      "name": "Initialize",
+      "invocation_count": 1,
+      "operations_per_invocation": 1000,
+      "total_operations": 1000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F2": {
+      "id": "F2",
+      "name": "Preprocess",
+      "invocation_count": 1,
+      "operations_per_invocation": 5000,
+      "total_operations": 5000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F3": {
+      "id": "F3",
+      "name": "A Prepare",
+      "invocation_count": 1,
+      "operations_per_invocation": 8000,
+      "total_operations": 8000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F4": {
+      "id": "F4",
+      "name": "A Execute",
+      "invocation_count": 1,
+      "operations_per_invocation": 50000,
+      "total_operations": 50000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F9": {
+      "id": "F9",
+      "name": "Recovery Prepare",
+      "invocation_count": 1,
+      "operations_per_invocation": 10000,
+      "total_operations": 10000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F10": {
+      "id": "F10",
+      "name": "Recovery Execute",
+      "invocation_count": 1,
+      "operations_per_invocation": 100000,
+      "total_operations": 100000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F11": {
+      "id": "F11",
+      "name": "Consolidate",
+      "invocation_count": 1,
+      "operations_per_invocation": 7000,
+      "total_operations": 7000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F12": {
+      "id": "F12",
+      "name": "Finalize",
+      "invocation_count": 1,
+      "operations_per_invocation": 2000,
+      "total_operations": 2000,
+      "success_count": 1,
+      "failure_count": 0
+    }
+  },
+  "sg_edges": [
+    {
+      "source": "F1",
+      "target": "F2",
+      "dependency_type": "data",
+      "reason": "blackboard(request)",
+      "data_key": "request",
+      "prolog_dependent": "preprocess",
+      "prolog_dependency": "initialize"
+    },
+    {
+      "source": "F1",
+      "target": "F2",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "preprocess",
+      "prolog_dependency": "initialize"
+    },
+    {
+      "source": "F10",
+      "target": "F11",
+      "dependency_type": "data",
+      "reason": "blackboard(result)",
+      "data_key": "result",
+      "prolog_dependent": "consolidate",
+      "prolog_dependency": "recovery_execute"
+    },
+    {
+      "source": "F10",
+      "target": "F11",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "consolidate",
+      "prolog_dependency": "recovery_execute"
+    },
+    {
+      "source": "F11",
+      "target": "F12",
+      "dependency_type": "data",
+      "reason": "blackboard(consolidated_result)",
+      "data_key": "consolidated_result",
+      "prolog_dependent": "finalize",
+      "prolog_dependency": "consolidate"
+    },
+    {
+      "source": "F11",
+      "target": "F12",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "finalize",
+      "prolog_dependency": "consolidate"
+    },
+    {
+      "source": "F2",
+      "target": "F3",
+      "dependency_type": "data",
+      "reason": "blackboard(context)",
+      "data_key": "context",
+      "prolog_dependent": "a_prepare",
+      "prolog_dependency": "preprocess"
+    },
+    {
+      "source": "F2",
+      "target": "F3",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "a_prepare",
+      "prolog_dependency": "preprocess"
+    },
+    {
+      "source": "F2",
+      "target": "F9",
+      "dependency_type": "data",
+      "reason": "blackboard(context)",
+      "data_key": "context",
+      "prolog_dependent": "recovery_prepare",
+      "prolog_dependency": "preprocess"
+    },
+    {
+      "source": "F3",
+      "target": "F4",
+      "dependency_type": "data",
+      "reason": "blackboard(plan_a)",
+      "data_key": "plan_a",
+      "prolog_dependent": "a_execute",
+      "prolog_dependency": "a_prepare"
+    },
+    {
+      "source": "F3",
+      "target": "F4",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "a_execute",
+      "prolog_dependency": "a_prepare"
+    },
+    {
+      "source": "F4",
+      "target": "F9",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "recovery_prepare",
+      "prolog_dependency": "a_execute"
+    },
+    {
+      "source": "F9",
+      "target": "F10",
+      "dependency_type": "data",
+      "reason": "blackboard(recovery_plan)",
+      "data_key": "recovery_plan",
+      "prolog_dependent": "recovery_execute",
+      "prolog_dependency": "recovery_prepare"
+    },
+    {
+      "source": "F9",
+      "target": "F10",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "recovery_execute",
+      "prolog_dependency": "recovery_prepare"
+    }
+  ],
+  "prolog_raw_edges": [
+    "edge(a_execute,a_prepare,blackboard(plan_a))",
+    "edge(a_execute,a_prepare,sequence)",
+    "edge(a_prepare,preprocess,blackboard(context))",
+    "edge(a_prepare,preprocess,sequence)",
+    "edge(consolidate,recovery_execute,blackboard(result))",
+    "edge(consolidate,recovery_execute,sequence)",
+    "edge(finalize,consolidate,blackboard(consolidated_result))",
+    "edge(finalize,consolidate,sequence)",
+    "edge(preprocess,initialize,blackboard(request))",
+    "edge(preprocess,initialize,sequence)",
+    "edge(recovery_execute,recovery_prepare,blackboard(recovery_plan))",
+    "edge(recovery_execute,recovery_prepare,sequence)",
+    "edge(recovery_prepare,a_execute,sequence)",
+    "edge(recovery_prepare,preprocess,blackboard(context))"
+  ],
+  "total_operations": 183000
+}

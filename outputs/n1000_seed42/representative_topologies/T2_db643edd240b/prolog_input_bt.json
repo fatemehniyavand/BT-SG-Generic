@@ -1,0 +1,75 @@
+{
+  "trees": [
+    {
+      "title": "Executed Service Path",
+      "root": "EXEC_PATH_ROOT",
+      "nodes": {
+        "F1": {
+          "name": "Initialize",
+          "properties": {
+            "bbwrite": "request"
+          }
+        },
+        "F2": {
+          "name": "Preprocess",
+          "properties": {
+            "bbread": "request",
+            "bbwrite": "context"
+          }
+        },
+        "F6": {
+          "name": "B Prepare",
+          "properties": {
+            "bbread": "context",
+            "bbwrite": "plan_b"
+          }
+        },
+        "F7": {
+          "name": "B Execute",
+          "properties": {
+            "bbread": "plan_b",
+            "bbwrite": "raw_b"
+          }
+        },
+        "F8": {
+          "name": "B Commit",
+          "properties": {
+            "bbread": "raw_b",
+            "bbwrite": "result"
+          }
+        },
+        "F11": {
+          "name": "Consolidate",
+          "properties": {
+            "bbread": "result",
+            "bbwrite": "consolidated_result"
+          }
+        },
+        "F12": {
+          "name": "Finalize",
+          "properties": {
+            "bbread": "consolidated_result",
+            "bbwrite": "output"
+          }
+        },
+        "EXEC_PATH_ROOT": {
+          "name": "Sequence",
+          "children": [
+            "F1",
+            "F2",
+            "F6",
+            "F7",
+            "F8",
+            "F11",
+            "F12"
+          ],
+          "properties": {}
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "source_run_id": 3,
+    "note": "Resolved execution path encoded as a Behavior Tree and transformed by the unchanged existing BT->SG Prolog rule."
+  }
+}

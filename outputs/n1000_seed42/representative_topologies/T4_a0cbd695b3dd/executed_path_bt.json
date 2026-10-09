@@ -1,0 +1,64 @@
+{
+  "name": "Executed Path BT - run 19",
+  "source_tree_name": "Generic Fallback-Retry Workflow BT",
+  "source_run_id": 19,
+  "root": "EXEC_PATH_ROOT",
+  "nodes": {
+    "F1": {
+      "type": "action",
+      "name": "Initialize"
+    },
+    "F2": {
+      "type": "action",
+      "name": "Preprocess"
+    },
+    "F9": {
+      "type": "action",
+      "name": "Recovery Prepare"
+    },
+    "F10": {
+      "type": "action",
+      "name": "Recovery Execute",
+      "strategy_label": "Recovery"
+    },
+    "F11": {
+      "type": "action",
+      "name": "Consolidate"
+    },
+    "F12": {
+      "type": "action",
+      "name": "Finalize"
+    },
+    "EXEC_PATH_ROOT": {
+      "type": "sequence",
+      "name": "Executed Service Path",
+      "children": [
+        "F1",
+        "F2",
+        "F9",
+        "F10",
+        "F11",
+        "F12"
+      ]
+    }
+  },
+  "execution_metadata": {
+    "path_action_ids": [
+      "F1",
+      "F2",
+      "F9",
+      "F10",
+      "F11",
+      "F12"
+    ],
+    "action_invocation_counts": {
+      "F1": 1,
+      "F2": 1,
+      "F9": 1,
+      "F10": 1,
+      "F11": 1,
+      "F12": 1
+    },
+    "representation": "Resolved runtime service path encoded as a Sequence BT; consecutive retries are represented by invocation multiplicity."
+  }
+}

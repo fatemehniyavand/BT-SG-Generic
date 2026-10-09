@@ -1,0 +1,9 @@
+[project]
+name = "ticktide-generic-prolog"
+version = "0.2.0"
+description = "Generic repeated-execution Behavior Tree experiment using executed-BT pruning and the existing Prolog BT-to-SG transformation."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

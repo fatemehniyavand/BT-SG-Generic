@@ -1,0 +1,193 @@
+{
+  "run_id": 3,
+  "service_nodes": {
+    "F1": {
+      "id": "F1",
+      "name": "Initialize",
+      "invocation_count": 1,
+      "operations_per_invocation": 1000,
+      "total_operations": 1000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F2": {
+      "id": "F2",
+      "name": "Preprocess",
+      "invocation_count": 1,
+      "operations_per_invocation": 5000,
+      "total_operations": 5000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F6": {
+      "id": "F6",
+      "name": "B Prepare",
+      "invocation_count": 1,
+      "operations_per_invocation": 8000,
+      "total_operations": 8000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F7": {
+      "id": "F7",
+      "name": "B Execute",
+      "invocation_count": 1,
+      "operations_per_invocation": 80000,
+      "total_operations": 80000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F8": {
+      "id": "F8",
+      "name": "B Commit",
+      "invocation_count": 1,
+      "operations_per_invocation": 4000,
+      "total_operations": 4000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F11": {
+      "id": "F11",
+      "name": "Consolidate",
+      "invocation_count": 1,
+      "operations_per_invocation": 7000,
+      "total_operations": 7000,
+      "success_count": 1,
+      "failure_count": 0
+    },
+    "F12": {
+      "id": "F12",
+      "name": "Finalize",
+      "invocation_count": 1,
+      "operations_per_invocation": 2000,
+      "total_operations": 2000,
+      "success_count": 1,
+      "failure_count": 0
+    }
+  },
+  "sg_edges": [
+    {
+      "source": "F1",
+      "target": "F2",
+      "dependency_type": "data",
+      "reason": "blackboard(request)",
+      "data_key": "request",
+      "prolog_dependent": "preprocess",
+      "prolog_dependency": "initialize"
+    },
+    {
+      "source": "F1",
+      "target": "F2",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "preprocess",
+      "prolog_dependency": "initialize"
+    },
+    {
+      "source": "F11",
+      "target": "F12",
+      "dependency_type": "data",
+      "reason": "blackboard(consolidated_result)",
+      "data_key": "consolidated_result",
+      "prolog_dependent": "finalize",
+      "prolog_dependency": "consolidate"
+    },
+    {
+      "source": "F11",
+      "target": "F12",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "finalize",
+      "prolog_dependency": "consolidate"
+    },
+    {
+      "source": "F2",
+      "target": "F6",
+      "dependency_type": "data",
+      "reason": "blackboard(context)",
+      "data_key": "context",
+      "prolog_dependent": "b_prepare",
+      "prolog_dependency": "preprocess"
+    },
+    {
+      "source": "F2",
+      "target": "F6",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "b_prepare",
+      "prolog_dependency": "preprocess"
+    },
+    {
+      "source": "F6",
+      "target": "F7",
+      "dependency_type": "data",
+      "reason": "blackboard(plan_b)",
+      "data_key": "plan_b",
+      "prolog_dependent": "b_execute",
+      "prolog_dependency": "b_prepare"
+    },
+    {
+      "source": "F6",
+      "target": "F7",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "b_execute",
+      "prolog_dependency": "b_prepare"
+    },
+    {
+      "source": "F7",
+      "target": "F8",
+      "dependency_type": "data",
+      "reason": "blackboard(raw_b)",
+      "data_key": "raw_b",
+      "prolog_dependent": "b_commit",
+      "prolog_dependency": "b_execute"
+    },
+    {
+      "source": "F7",
+      "target": "F8",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "b_commit",
+      "prolog_dependency": "b_execute"
+    },
+    {
+      "source": "F8",
+      "target": "F11",
+      "dependency_type": "data",
+      "reason": "blackboard(result)",
+      "data_key": "result",
+      "prolog_dependent": "consolidate",
+      "prolog_dependency": "b_commit"
+    },
+    {
+      "source": "F8",
+      "target": "F11",
+      "dependency_type": "control",
+      "reason": "sequence",
+      "data_key": "",
+      "prolog_dependent": "consolidate",
+      "prolog_dependency": "b_commit"
+    }
+  ],
+  "prolog_raw_edges": [
+    "edge(b_commit,b_execute,blackboard(raw_b))",
+    "edge(b_commit,b_execute,sequence)",
+    "edge(b_execute,b_prepare,blackboard(plan_b))",
+    "edge(b_execute,b_prepare,sequence)",
+    "edge(b_prepare,preprocess,blackboard(context))",
+    "edge(b_prepare,preprocess,sequence)",
+    "edge(consolidate,b_commit,blackboard(result))",
+    "edge(consolidate,b_commit,sequence)",
+    "edge(finalize,consolidate,blackboard(consolidated_result))",
+    "edge(finalize,consolidate,sequence)",
+    "edge(preprocess,initialize,blackboard(request))",
+    "edge(preprocess,initialize,sequence)"
+  ],
+  "total_operations": 107000
+}
